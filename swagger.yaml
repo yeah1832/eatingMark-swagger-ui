@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: Places API
+  description: 맛집 정보를 관리하는 API로, 맛집을 조회, 저장, 삭제할 수 있습니다.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: 로컬 개발 서버
+paths:
+  /places:
+    get:
+      summary: 맛집 데이터 가져오기
+      description: 서버에 저장된 모든맛집 데이터를 반환합니다.
+      responses:
+        200:
+          description: 성공적으로 장소 데이터를 반환함
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  places:
+                    type: array
+                    items:
+                      type: object
+                      description: 맛집 객체
+  /user-places:
+    get:
+      summary: 사용자 맛집 데이터 가져오기
+      description: 서버에 저장된 사용자별 맛집 데이터를 반환합니다.
+      responses:
+        200:
+          description: 성공적으로 사용자 장소 데이터를 반환함
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  places:
+                    type: array
+                    items:
+                      type: object
+                      description: 사용자 맛집 객체
+    post:
+      summary: 사용자의 맛집 저장
+      description: 사용자가 맛집 목록에 맛집을 저장합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                place:
+                  type: object
+                  required:
+                    - id
+                    - name
+                    - description
+                    - location
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    location:
+                      type: string
+      responses:
+        200:
+          description: 맛집이 저장되거나 수정되었습니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "사용자의 맛집이 저장/수정되었습니다!"
+
+  /user-places/{id}:
+    delete:
+      summary: 사용자의 맛집 삭제
+      description: 사용자가 저장한 맛집 목록에서 ID로 맛집을 삭제합니다.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: 삭제할 맛집의 ID
+          schema:
+            type: string
+      responses:
+        200:
+          description: 맛집이 성공적으로 삭제되었습니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "사용자의 맛집이 삭제되었습니다!"
+
+
+components:
+  schemas:
+    Place:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    UserPlace:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
