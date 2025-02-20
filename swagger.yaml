@@ -24,7 +24,7 @@ paths:
                     items:
                       type: object
                       description: 맛집 객체
-  /user-places:
+  /users/places:
     get:
       summary: 사용자 맛집 데이터 가져오기
       description: 서버에 저장된 사용자별 맛집 데이터를 반환합니다.
@@ -79,7 +79,7 @@ paths:
                     type: string
                     example: "사용자의 맛집이 저장/수정되었습니다!"
 
-  /user-places/{id}:
+  /users/places/{id}:
     delete:
       summary: 사용자의 맛집 삭제
       description: 사용자가 저장한 맛집 목록에서 ID로 맛집을 삭제합니다.
@@ -102,24 +102,3 @@ paths:
                     type: string
                     example: "사용자의 맛집이 삭제되었습니다!"
 
-
-components:
-  schemas:
-    Place:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-    UserPlace:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
