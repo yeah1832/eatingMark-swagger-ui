@@ -23,40 +23,14 @@ paths:
                     type: array
                     items:
                       type: object
-                      properties:
-                        id:
-                          type: string
-                          example: "r1"
-                        title:
-                          type: string
-                          example: "을지로 골목냉면"
-                        image:
-                          type: object
-                          properties:
-                            src:
-                              type: string
-                              example: "euljiro-naengmyeon.jpg"
-                            alt:
-                              type: string
-                              example: "을지로 골목에서 유명한 시원한 냉면."
-                        lat:
-                          type: number
-                          format: float
-                          example: 37.5665
-                        lon:
-                          type: number
-                          format: float
-                          example: 126.978
-                        description:
-                          type: string
-                          example: "시원한 육수와 쫄깃한 면발로 유명한 을지로 냉면 맛집."
+                      description: 맛집 객체
   /users/places:
     get:
-      summary: 사용자 맛집 데이터 가져오기
-      description: 서버에 저장된 사용자별 맛집 데이터를 반환합니다.
+      summary: 찜한 맛집 목록 가져오기
+      description: 서버에 찜한 맛집 목록을 반환합니다.
       responses:
         200:
-          description: 성공적으로 사용자 장소 데이터를 반환함
+          description: 성공적으로 사용자가 찜한 맛집 데이터를 반환함
           content:
             application/json:
               schema:
@@ -66,36 +40,10 @@ paths:
                     type: array
                     items:
                       type: object
-                      properties:
-                        id:
-                          type: string
-                          example: "r9"
-                        title:
-                          type: string
-                          example: "인천 차이나타운 짜장면"
-                        image:
-                          type: object
-                          properties:
-                            src:
-                              type: string
-                              example: "incheon-jajangmyeon.jpg"
-                            alt:
-                              type: string
-                              example: "진한 짜장 소스가 어우러진 짜장면."
-                        lat:
-                          type: number
-                          format: float
-                          example: 37.474
-                        lon:
-                          type: number
-                          format: float
-                          example: 126.617
-                        description:
-                          type: string
-                          example: "인천 차이나타운에서 만나는 원조 짜장면 맛집."
+                      description: 사용자 맛집 객체
     post:
-      summary: 사용자의 맛집 저장
-      description: 사용자가 맛집 목록에 맛집을 저장합니다.
+      summary: 찜한 맛집 목록에 맛집 저장하기
+      description: 사용자가 찜한 맛집 목록에 맛집을 저장합니다.
       requestBody:
         required: true
         content:
@@ -107,41 +55,21 @@ paths:
                   type: object
                   required:
                     - id
-                    - title
-                    - image
-                    - lat
-                    - lon
+                    - name
                     - description
+                    - location
                   properties:
                     id:
                       type: string
-                      example: "r10"
-                    title:
+                    name:
                       type: string
-                      example: "속초 중앙시장 닭강정"
-                    image:
-                      type: object
-                      properties:
-                        src:
-                          type: string
-                          example: "sokcho-chicken.jpg"
-                        alt:
-                          type: string
-                          example: "겉은 바삭하고 속은 촉촉한 닭강정."
-                    lat:
-                      type: number
-                      format: float
-                      example: 38.2062
-                    lon:
-                      type: number
-                      format: float
-                      example: 128.591
                     description:
                       type: string
-                      example: "달콤하고 매콤한 맛이 조화로운 속초 닭강정."
+                    location:
+                      type: string
       responses:
         200:
-          description: 맛집이 저장되거나 수정되었습니다.
+          description: 찜한 맛집이 저장되거나 수정되었습니다.
           content:
             application/json:
               schema:
@@ -150,10 +78,11 @@ paths:
                   message:
                     type: string
                     example: "사용자의 맛집이 저장/수정되었습니다!"
+
   /users/places/{id}:
     delete:
-      summary: 사용자의 맛집 삭제
-      description: 사용자가 저장한 맛집 목록에서 ID로 맛집을 삭제합니다.
+      summary: 찜한 맛집 삭제
+      description: 사용자가 찜한 맛집 목록에서 ID로 맛집을 삭제합니다.
       parameters:
         - in: path
           name: id
@@ -162,5 +91,14 @@ paths:
           schema:
             type: string
       responses:
-        204:
-          description: 맛집이 성공적으로 삭제되었습니다.
+        200:
+          description: 찜한 맛집이 성공적으로 삭제되었습니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "사용자가 찜한 맛집이 삭제되었습니다!"
+
