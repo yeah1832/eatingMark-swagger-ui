@@ -91,14 +91,7 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        204:
           description: 맛집이 성공적으로 삭제되었습니다.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "사용자의 맛집이 삭제되었습니다!"
+
 
